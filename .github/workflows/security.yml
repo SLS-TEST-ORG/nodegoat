@@ -33,6 +33,7 @@ jobs:
       - name: Polaris Scan
         shell: bash
         run: |
+          export BRIDGE_POLARIS_ACCESSTOKEN=$BRIDGE_POLARIS_ACCESSTOKEN
           ${{ runner.temp }}/synopsys-bridge --stage polaris polaris.project.name="NodeGoat" \
           polaris.branch.name=$BRIDGE_GITHUB_REPOSITORY_BRANCH_NAME \
           polaris.application.name="JP-NodeGoat" \

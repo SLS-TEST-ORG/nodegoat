@@ -12,6 +12,7 @@ jobs:
           node-version: 18
       - run: npm install
       - name: Black Duck Scan
+        shell: bash
         env:
           BRIDGE_BLACKDUCK_URL: ${{ vars.BLACKDUCK_URL }}
           BRIDGE_BLACKDUCK_TOKEN: ${{ secrets.BLACKDUCK_TOKEN }}

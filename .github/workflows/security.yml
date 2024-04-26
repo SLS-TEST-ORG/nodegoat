@@ -3,7 +3,7 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Building NodeGoat
+    name: NodeGoat Security Pipeline
     steps:
       - uses: actions/checkout@v3
       - name: Installing node
@@ -12,9 +12,17 @@ jobs:
           node-version: 18
       - run: npm install
       - name: Black Duck Scan
-        uses: synopsys-sig/synopsys-action@v1.9.0
         env:
-          DETECT_PROJECT_NAME: ${{ github.event.repository.name }}
-        with:
-          blackduck_url: ${{ vars.BLACKDUCK_URL }}
-          blackduck_token: ${{ secrets.BLACKDUCK_TOKEN }} 
+          BRIDGE_BLACKDUCK_URL: ${{ vars.BLACKDUCK_URL }}
+          BRIDGE_BLACKDUCK_TOKEN: ${{ secrets.BLACKDUCK_TOKEN }}
+          BRIDGE_GITHUB_USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRIDGE_GITHUB_REPOSITORY_OWNER_NAME: ${{ github.repository_owner }}
+          BRIDGE_GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+          BRIDGE_GITHUB_REPOSITORY_BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          curl -fLsS -o bridge.zip ${{ vars.BRIDGECLI_LINUX64 }} && unzip -qo -d ${{ runner.temp }} bridge.zip && rm -f bridge.zip
+          ${{ runner.temp }}/synopsys-bridge --stage blackduck \
+            blackduck.scan.full='true' \
+            blackduck.scan.failure.severities='BLOCKER' \
+            blackduck.fixpr.enabled='true' \
+            blackduck.reports.sarif.create='true'

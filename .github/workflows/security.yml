@@ -47,7 +47,7 @@ jobs:
           polaris.branch.name=$BRIDGE_GITHUB_REPOSITORY_BRANCH_NAME \
           polaris.application.name=$BRIDGE_POLARIS_APPLICATION_NAME \
           polaris.assessment.types=$BRIDGE_POLARIS_ASSESSMENT_TYPES \
-          polaris.serverurl=$BRIDGE_POLARIS_SERVERURL \
+          polaris.serverurl=$BRIDGE_POLARIS_SERVERURL
   srm:
     runs-on: ubuntu-latest
     needs: build

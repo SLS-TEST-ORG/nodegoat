@@ -26,5 +26,5 @@ jobs:
           ${{ runner.temp }}/synopsys-bridge --stage blackduck \
             blackduck.scan.full='true' \
             blackduck.scan.failure.severities='BLOCKER' \
-            blackduck.fixpr.enabled='true' \
-            blackduck.reports.sarif.create='true'
+            blackduck.fixpr.enabled='false' \
+            blackduck.reports.sarif.create='false'

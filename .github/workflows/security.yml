@@ -3,11 +3,18 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: NodeGoat
+    name: Building NodeGoat
     steps:
       - uses: actions/checkout@v3
-      - name: Setup node
+      - name: Installing node
         uses: actions/setup-node@v3
         with:
           node-version: 18
       - run: npm install
+      - name: Black Duck Scan
+        uses: synopsys-sig/synopsys-action@v1.9.0
+        env:
+          DETECT_PROJECT_NAME: ${{ github.event.repository.name }}
+        with:
+          blackduck_url: ${{ vars.BLACKDUCK_URL }}
+          blackduck_token: ${{ secrets.BLACKDUCK_TOKEN }} 

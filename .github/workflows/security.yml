@@ -18,6 +18,7 @@ jobs:
           BRIDGE_BLACKDUCK_URL: ${{ secrets.BRIDGE_BLACKDUCK_URL }}
           BRIDGE_BLACKDUCK_TOKEN: ${{ secrets.BRIDGE_BLACKDUCK_TOKEN }}
           BRIDGE_POLARIS_URL: ${{ secrets.BRIDGE_POLARIS_URL }}
+          BRIDGE_POLARIS_ACCESSTOKEN: ${{ secrets.BRIDGE_POLARIS_ACCESSTOKEN }}
           BRIDGE_GITHUB_USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRIDGE_GITHUB_REPOSITORY_OWNER_NAME: ${{ github.repository_owner }}
           BRIDGE_GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}

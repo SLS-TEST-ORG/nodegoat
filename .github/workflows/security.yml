@@ -15,8 +15,8 @@ jobs:
         shell: bash
         env:
           BRIDGE_DOWNLOAD: ${{ secrets.BRIDGECLI_LINUX64 }}        
-          BRIDGE_BLACKDUCK_URL: ${{ vars.BLACKDUCK_URL }}
-          BRIDGE_BLACKDUCK_TOKEN: ${{ secrets.BLACKDUCK_TOKEN }}
+          BRIDGE_BLACKDUCK_URL: ${{ secrets.BRIDGE_BLACKDUCK_URL }}
+          BRIDGE_BLACKDUCK_TOKEN: ${{ secrets.BRIDGE_BLACKDUCK_TOKEN }}
           BRIDGE_GITHUB_USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRIDGE_GITHUB_REPOSITORY_OWNER_NAME: ${{ github.repository_owner }}
           BRIDGE_GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}

@@ -17,6 +17,7 @@ jobs:
           BRIDGE_DOWNLOAD: ${{ secrets.BRIDGECLI_LINUX64 }}        
           BRIDGE_BLACKDUCK_URL: ${{ secrets.BRIDGE_BLACKDUCK_URL }}
           BRIDGE_BLACKDUCK_TOKEN: ${{ secrets.BRIDGE_BLACKDUCK_TOKEN }}
+          BRIDGE_POLARIS_URL: ${{ secrets.BRIDGE_POLARIS_URL }}
           BRIDGE_GITHUB_USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRIDGE_GITHUB_REPOSITORY_OWNER_NAME: ${{ github.repository_owner }}
           BRIDGE_GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
@@ -28,3 +29,11 @@ jobs:
             blackduck.scan.failure.severities='BLOCKER' \
             blackduck.fixpr.enabled='false' \
             blackduck.reports.sarif.create='false'
+      - name: Polaris Scan
+        shell: bash
+        run: |
+          ${{ runner.temp }}/synopsys-bridge --stage polaris polaris.project.name="NodeGoat" \
+          polaris.branch.name=$BRIDGE_GITHUB_REPOSITORY_BRANCH_NAME \
+          polaris.application.name="JP-NodeGoat" \
+          polaris.assessment.types=SAST \
+          polaris.serverurl=$BRIDGE_POLARIS_URL \

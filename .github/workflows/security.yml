@@ -50,6 +50,7 @@ jobs:
           polaris.serverurl=$BRIDGE_POLARIS_SERVERURL
   srm: #264
     runs-on: ubuntu-latest
+    name: SRM Sync & Policy Scan
     needs: build
     env:
       BRIDGE_SRM_URL: ${{ secrets.SRM_URL }}

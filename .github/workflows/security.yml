@@ -48,14 +48,14 @@ jobs:
           polaris.application.name=$BRIDGE_POLARIS_APPLICATION_NAME \
           polaris.assessment.types=$BRIDGE_POLARIS_ASSESSMENT_TYPES \
           polaris.serverurl=$BRIDGE_POLARIS_SERVERURL
-  srm:
+  SRM Sync:
     runs-on: ubuntu-latest
     needs: build
     env:
       BRIDGE_SRM_URL: ${{ secrets.SRM_URL }}
       BRIDGE_SRM_APIKEY: ${{ secrets.SRM_APIKEY }}
       BRIDGE_SRM_ASSESSMENT_TYPES: 'SAST,SCA'
-      BRIDGE_SRM_PROJECT_NAME: ${{ github.event.repository.name }}
+      BRIDGE_SRM_PROJECT_NAME: 'NodeGoat' #${{ github.event.repository.name }}
       BRIDGE_SRM_BRANCH_NAME: ${{ github.event.ref_name }}
     steps:
     - name: Checkout Source
@@ -63,4 +63,4 @@ jobs:
     - name: SRM Scan
       run: |
         curl -fLsS -o bridge.zip ${{ secrets.BRIDGECLI_LINUX64 }} && unzip -qo -d $RUNNER_TEMP bridge.zip && rm -f bridge.zip
-        $RUNNER_TEMP/synopsys-bridge --stage srm srm.project.name="NodeGoat"
+        $RUNNER_TEMP/synopsys-bridge --stage srm

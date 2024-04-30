@@ -14,7 +14,7 @@ jobs:
       - name: Black Duck Scan
         env:
           BRIDGE_DOWNLOAD: ${{ secrets.BRIDGECLI_LINUX64 }}        
-          BRIDGE_BLACKDUCK_URL: ${{ secrets.BRIDGE_BLACKDUCK_URL }}
+          BRIDGE_BLACKDUCK_URL: ${{ var.BRIDGE_BLACKDUCK_URL }}
           BRIDGE_BLACKDUCK_TOKEN: ${{ secrets.BRIDGE_BLACKDUCK_TOKEN }}
           BRIDGE_GITHUB_USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRIDGE_GITHUB_REPOSITORY_OWNER_NAME: ${{ github.repository_owner }}
@@ -30,7 +30,7 @@ jobs:
             blackduck.reports.sarif.create='false'
       - name: Polaris Scan
         env:
-          BRIDGE_POLARIS_SERVERURL: ${{ secrets.POLARIS_SERVERURL }}
+          BRIDGE_POLARIS_SERVERURL: ${{ var.POLARIS_SERVERURL }}
           BRIDGE_POLARIS_ACCESSTOKEN: ${{ secrets.POLARIS_ACCESSTOKEN }}
           BRIDGE_POLARIS_ASSESSMENT_TYPES: 'SAST'
           BRIDGE_POLARIS_APPLICATION_NAME: 'JP-NodeGoat'
@@ -53,7 +53,7 @@ jobs:
     name: SRM Sync & Policy Scan
     needs: build
     env:
-      BRIDGE_SRM_URL: ${{ secrets.SRM_URL }}
+      BRIDGE_SRM_URL: ${{ var.SRM_URL }}
       BRIDGE_SRM_APIKEY: ${{ secrets.SRM_APIKEY }}
       BRIDGE_SRM_ASSESSMENT_TYPES: 'SAST' #need to add back sca
       BRIDGE_SRM_PROJECT_NAME: 'NodeGoat' #${{ github.event.repository.name }}

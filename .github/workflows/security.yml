@@ -54,7 +54,7 @@ jobs:
     needs: build
     env:
       # BRIDGE_SRM_URL: ${{ vars.SRM_URL }}
-      BRIDGE_SRM_URL: ${{ vars.SRM_URL }}
+      BRIDGE_SRM_URL: https://poc309.srm.synopsys.com
       BRIDGE_SRM_APIKEY: ${{ secrets.SRM_APIKEY }}
       BRIDGE_SRM_ASSESSMENT_TYPES: 'SAST, SCA'
       BRIDGE_SRM_PROJECT_NAME: 'NodeGoat' #${{ github.event.repository.name }}

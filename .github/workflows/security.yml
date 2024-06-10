@@ -53,6 +53,7 @@ jobs:
     name: SRM Sync & Policy Scan
     needs: build
     env:
+      # BRIDGE_SRM_URL: ${{ vars.SRM_URL }}
       BRIDGE_SRM_URL: ${{ vars.SRM_URL }}
       BRIDGE_SRM_APIKEY: ${{ secrets.SRM_APIKEY }}
       BRIDGE_SRM_ASSESSMENT_TYPES: 'SAST, SCA'

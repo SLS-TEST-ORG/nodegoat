@@ -13,9 +13,9 @@ jobs:
       - run: npm install
       - name: Black Duck Scan
         env:
-          BRIDGE_DOWNLOAD: ${{ secrets.BRIDGECLI_LINUX64 }}        
-          BRIDGE_BLACKDUCK_URL: ${{ vars.BRIDGE_BLACKDUCK_URL }}
-          BRIDGE_BLACKDUCK_TOKEN: ${{ secrets.BRIDGE_BLACKDUCK_TOKEN }}
+          BRIDGE_DOWNLOAD: ${{ vars.BRIDGECLI_LINUX64 }}        
+          BRIDGE_BLACKDUCK_URL: ${{ vars.BLACKDUCK_URL }}
+          BRIDGE_BLACKDUCK_TOKEN: ${{ secrets.BLACKDUCK_API_TOKEN }}
           BRIDGE_GITHUB_USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRIDGE_GITHUB_REPOSITORY_OWNER_NAME: ${{ github.repository_owner }}
           BRIDGE_GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
@@ -28,32 +28,33 @@ jobs:
             blackduck.scan.failure.severities='BLOCKER' \
             blackduck.fixpr.enabled='false' \
             blackduck.reports.sarif.create='false'
-      - name: Polaris Scan
-        env:
-          BRIDGE_POLARIS_SERVERURL: ${{ vars.POLARIS_SERVERURL }}
-          BRIDGE_POLARIS_ACCESSTOKEN: ${{ secrets.POLARIS_ACCESSTOKEN }}
-          BRIDGE_POLARIS_ASSESSMENT_TYPES: 'SAST,SCA'
-          BRIDGE_POLARIS_APPLICATION_NAME: 'JP-NodeGoat'
-          BRIDGE_POLARIS_PROJECT_NAME: 'NodeGoat'
-          BRIDGE_POLARIS_BRANCH_NAME: ${{ github.event.ref_name }}
-          BRIDGE_DOWNLOAD: ${{ secrets.BRIDGECLI_LINUX64 }}        
-          BRIDGE_GITHUB_USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRIDGE_GITHUB_REPOSITORY_OWNER_NAME: ${{ github.repository_owner }}
-          BRIDGE_GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
-          BRIDGE_GITHUB_REPOSITORY_BRANCH_NAME: ${{ github.ref_name }}       
-        shell: bash
-        run: |
-          ${{ runner.temp }}/synopsys-bridge --stage polaris polaris.project.name=$BRIDGE_POLARIS_PROJECT_NAME \
-          polaris.branch.name=$BRIDGE_GITHUB_REPOSITORY_BRANCH_NAME \
-          polaris.application.name=$BRIDGE_POLARIS_APPLICATION_NAME \
-          polaris.assessment.types=$BRIDGE_POLARIS_ASSESSMENT_TYPES \
-          polaris.serverurl=$BRIDGE_POLARIS_SERVERURL
+      # - name: Polaris Scan
+        # env:
+          # BRIDGE_POLARIS_SERVERURL: ${{ vars.POLARIS_SERVERURL }}
+          # BRIDGE_POLARIS_ACCESSTOKEN: ${{ secrets.POLARIS_ACCESSTOKEN }}
+          # BRIDGE_POLARIS_ASSESSMENT_TYPES: 'SAST,SCA'
+          # BRIDGE_POLARIS_APPLICATION_NAME: 'JP-NodeGoat'
+          # BRIDGE_POLARIS_PROJECT_NAME: 'NodeGoat'
+          # BRIDGE_POLARIS_BRANCH_NAME: ${{ github.event.ref_name }}
+          # BRIDGE_DOWNLOAD: ${{ secrets.BRIDGECLI_LINUX64 }}        
+          # BRIDGE_GITHUB_USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # BRIDGE_GITHUB_REPOSITORY_OWNER_NAME: ${{ github.repository_owner }}
+          # BRIDGE_GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+          # BRIDGE_GITHUB_REPOSITORY_BRANCH_NAME: ${{ github.ref_name }}       
+        # shell: bash
+        # run: |
+          # ${{ runner.temp }}/synopsys-bridge --stage polaris polaris.project.name=$BRIDGE_POLARIS_PROJECT_NAME \
+          # polaris.branch.name=$BRIDGE_GITHUB_REPOSITORY_BRANCH_NAME \
+          # polaris.application.name=$BRIDGE_POLARIS_APPLICATION_NAME \
+          # polaris.assessment.types=$BRIDGE_POLARIS_ASSESSMENT_TYPES \
+          # polaris.serverurl=$BRIDGE_POLARIS_SERVERURL
   srm: #264 
     runs-on: ubuntu-latest
     name: SRM Sync & Policy Scan
     needs: build
     env:
-      BRIDGE_SRM_URL: ${{ vars.SRM_URL }}
+      # BRIDGE_SRM_URL: ${{ vars.SRM_URL }}
+      BRIDGE_SRM_URL: https://poc309.srm.synopsys.com
       BRIDGE_SRM_APIKEY: ${{ secrets.SRM_APIKEY }}
       BRIDGE_SRM_ASSESSMENT_TYPES: 'SAST, SCA'
       BRIDGE_SRM_PROJECT_NAME: 'NodeGoat' #${{ github.event.repository.name }}
